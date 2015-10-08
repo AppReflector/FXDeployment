@@ -58,6 +58,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import netscape.javascript.JSObject;
 
+
 /**
  * FXWebApp is used to embed a JavaFX scene into a browser and support user
  * interaction via JavaScript callbacks in the host environment.
