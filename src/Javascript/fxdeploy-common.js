@@ -42,7 +42,7 @@ fxdeploy$common = function () {
      * The value can be changed from a web-page using
      *       fxdeploy$common.setJnlpFile(filename)
      */
-    var default_jnlp_file = '../../../java/FXDeploy/dist/FXDeploy.jnlp';
+    var default_jnlp_file = '../../RuntimeResources/FXDeployment/dist/FXDeployment.jnlp';
     // For the AppReflector.com demo pages
     //var jnlp_file = './java/FXDeploy/dist/FXDeploy.jnlp';
 
