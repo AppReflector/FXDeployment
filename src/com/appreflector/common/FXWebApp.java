@@ -376,9 +376,8 @@ import netscape.javascript.JSObject;
  * <li> The data string that was supplied as a parameter to the {@code start}
  * method or by a subsequent call the {@code FXWebApp setData} method.</li>
  * </ol>
- * When callbacks are shared, because two or more nodes share an id or node
- * class names are being used to identify the callback, the third and fourth
- * input parameters will be common to each of those objects.
+ * When callbacks are shared because two or more nodes share an id the third
+ * argument will be common to each of those objects.
  * <p>
  * <em><strong>Multiple calls to {@code initController}</strong></em><br>
  * Although it is anticipated that the initController method will generally be
@@ -606,8 +605,7 @@ public class FXWebApp extends Application {
             + "<?import javafx.scene.control.*?>\n"
             + "<?import javafx.scene.shape.*?>\n"
             + "<?import javafx.scene.layout.*?>"
-            + "<?import javafx.collections.*?>"
-            + "<?import waterloo.fx.plot.*?>";
+            + "<?import javafx.collections.*?>";
 
     @Override
     public void start(Stage primaryStage) {
