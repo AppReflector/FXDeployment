@@ -136,6 +136,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+<<<<<<< OURS
+=======
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="FXDeployment" />
@@ -168,6 +170,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+>>>>>>> THEIRS
         </subPane>
       </pane>
       <pane id="Scratches" />
