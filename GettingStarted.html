@@ -16,7 +16,7 @@
 <body>
 <div class="wrapper">
     <header>
-        <h1><a href="index.html" title="Go to overview">FXDeployment: Overview</a></h1>
+        <h1><a href="index.html" title="Go to overview">FXDeployment: Getting started</a></h1>
 
         <h3><em>
             Embed a JavaFX scene into a browser page and automatically support user interaction via JavaScript callbacks
@@ -71,80 +71,85 @@
     </header>
 
     <section>
-
         <h3>
             <a aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>What does the FXDeployment code do?
+                    class="octicon octicon-link"></span></a>Step 1: Adding the Javascript
         </h3>
-        The <strong><em>FXDeployment</em></strong> code allows GUIs described using the
-        <a href="http://docs.oracle.com/javafx/2/fxml_get_started/jfxpub-fxml_get_started.htm"> FXML markup
-            language</a> to be embedded into a web page.
-        FXML provides access to a wide range of GUI <a
-            href="https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/ui_controls.htm">
-        control elements </a>(buttons, checkboxes, menus, date selectors etc.) together with containers for them
-        including border panes, stack panes, grid panes and anchor panes. See <a
-            href="http://docs.oracle.com/javafx/2/fxml_get_started/jfxpub-fxml_get_started.htm">here</a>
-        for details.<br>
-        The <strong><em>FXWebApp</em></strong> class included in the FXDeployment package automatically generates
-        the required JavaFX GUI hierarchy
-        and provides access to the GUI elements from the browser using Javascript.
-        <hr>
-
-
-        <h3>
-            <a aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>
-            Do I need to work in Java?
-        </h3>
-
-        No. The <strong><em>FXWebApp</em></strong> class is called from Javascript and allows all
-        end-user work to be done with HTML, FXML, Javascript and, if required, CSS.
-        <br>
-        All a user need do is add an element to the HTML for their web page to contain the GUI.
-        The declaration of that element can specify an FXML file as an attribute
-        - or the FXML can be in-lined within the HTML element.<br>
-        The <strong><em>init</em></strong> function in the accompanying Javascript file
-        (<strong><em>fxdeploy-common.js</em></strong>) should be called from the HTML document
-        <strong><em>onload</em></strong> method. This will invoke the required Java code which will:
+        The <strong><em>FXWebApp</em></strong> code uses two Javascript files.
         <ol>
-            <li>Embed the GUI in the web page</li>
-            <li>Embed an application in the HTML document that provides access to the Java GUI elements
-                from Javascript (and exposes some convenience Java methods to Javascript programmers
-            </li>
-            <li>Attaches Javascript callbacks to the GUI elements that can be programmed to respond to
-                user-generated events such as button clicks, combobox selection changes etc.
-            </li>
+            <li><strong>dtjava.js</strong> which is part of the Java Deployment Toolkit</li>
+        <li><strong>fxdeploy-common.js</strong> which is part of the FXDeployment code</li>
         </ol>
-            Full details are provided in the <a href="./GettingStarted.html">"Getting Started"</a> pages.
-        <hr>
+        Use of fxdeploy-common.js is optional: you can directly call the functions supplied in dtjava.js, but
+        fxdeploy-common.js makes this easier.<br>
+        In the description that follows, it is assumed that fxdeploy-common.js is being used.
+        <strong>
+            Add the &ltscript&gt declarations to the &lthead&gt element of your HTML file:
+        </strong>
 
+        <br>&ltscript type="text/javascript" src="http://java.com/js/dtjava"&gt
+        <br>&ltscript type="text/javascript" src="pathto/fxdeploy-common.js"&gt<br>
+        Note that you need to set the path to locate the fxdeploy.common.js
+        file on your site.<br>
+        Once loaded, a variable named <em>fxdeploy$common</em> will be available defining
+        an <em>init</em> function that should be called as described below after loading the HTML
+        document.
+        <hr>
         <h3>
             <a aria-hidden="true"><span
                     class="octicon octicon-link"></span></a>
-            Where it works
+            Step 2: Adding the required HTML
         </h3>
-
-        The code is presently targeted at browsers. Only those that support Java/JavaFX can use this code.
-        These currently include:
+        fxdeploy-common.js needs to know where in your HTML document it should embed the GUI.
+        Create an HTML element with an attribute of:
         <ul>
-            <li><strong>Windows</strong> - Internet Explorer, Firefox</li>
-            <li><strong>Mac OS</strong> - Safari, Firefox</li>
+            <li><strong>fxml-placeholder</strong> if you are using an FXML file</li>
+            <li><strong>fxml-content</strong> if you are specifying the FXML inline within the element</li>
         </ul>
-        Recent releases of Chrome, and other Chromium-based browsers, have removed support for NPAPI and can not display
-        JavaFX GUIs.
+        Both element classes should set the following attributes for use by fxdeploy-common.js:
+        <ul>
+            <li>
+                <strong>data-appname</strong> - provides a name for the embedded Java application.
+            The application may be accessed, once loaded, by calling to document.getElementById(data-appname);
+            </li>
+            <li><strong>data-callbacks</strong> - a string providing the name for the variable containing the
+                JavaScript callbacks for the JavaFX node.
+                If data-callbacks is not defined, a default value of fxml$callbacks will be assigned.
+            </li>
+            <li>
+            <strong>data-jnlp</strong> provides the fully qualified path and file name for the JNLP file for this project.
+            </li>
+        </ul>
+        For a <strong>fxml-placeholder</strong>, the "src" attribute should also be set to provided the
+        fully qualified path to the FXML file.
         <hr>
-
-
+        <h3>
+            <a aria-hidden="true"><span
+                    class="octicon octicon-link"></span></a>
+            Step 3: Invoking the Javascript on HTML document loading
+        </h3>
+        Call the <strong>fxdeploy$common.init()</strong> function as part of the document onload sequence
+        e.g.<br>
+        &ltbody onload="fxdeploy$common.init()"&gt<br>
+        This will:<br>
+        <ul>
+            <li>Replace the content of the fxml-placeholder or fxml-content element with the GUI</li>
+            <li>Embed the application (named as specified by data-name) into the document</li>
+            <li>Attach Java listeners to the GUI controls that will forward events to Javascript callbacks
+            available in the variable specified by data-callbacks.</li>
+        </ul>
+        The application will be an instance of the <strong><em>FXWebApp</em></strong> class. For details of
+        the methods available to Javascript programmers by calling into this app, see the <a href="#">here</a>.<br>
+        Details of how to write the Javascript callbacks are given in
+        <a href="./AttachingCallbacks.html">Attaching Callbacks</a>.
+        <hr>
         <h3>
             <a aria-hidden="true"><span
                     class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-        <p>
             FXDeployment was written by Malcolm Lidierth and is supplied as open-source code
             under the "BSD New" license by AppReflector Ltd, UK.
             Users of the open source release can receive help, report bugs and suggest improvements
             via the <a href="https://github.com/FXDeployment/FXDeployment/issues">project issues page on Github</a>.
-        </p>
     </section>
 
     <footer>
