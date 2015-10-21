@@ -59,7 +59,7 @@
                 <a href="./GUIDesignTools.html"> <strong>GUI Design Tools</strong></a>
             </li>
             <li>
-                <a href="./AttachingCallbacks.html"> <strong>Creating FXML</strong></a>
+                <a href="./CreatingFXML.html"> <strong>Creating FXML</strong></a>
             </li>
             <li>
                 <a href="./javadoc/index.html"> <strong>Java Documents</strong></a>
@@ -72,17 +72,17 @@
 
     <section>
         <p>
+            <h4>Users can write callbacks entirely in Javascript: there is no need to work in Java.</h4>
             When an <strong><em>FXWebApp</em></strong> instance is created, a controller is added that
             contains Java-coded listeners for the controls in your GUI. By default, these listeners simply forward
             events, such as mouse-clicks on JavaFX buttons, to Javascript callbacks.<br>
-            Users can therefore write callbacks entirely in Javascript: there is no need to work in Java.<br>
             The callback parent object is a Javascript variable that contains the callbacks and is defined by the user
             via the
             <strong>data-callbacks</strong> attribute of the <strong>fxml-placeholder</strong> or
-            <strong>fxml-content</strong> element described on the <a href="./GettingStarted.html">Getting Started</a>
-            page.<br>
+            <strong>fxml-content</strong> element in the HTML file (as described on the <a href="./GettingStarted.html">Getting Started</a>
+            page).<br>
             <strong>
-                Callbacks are run on the JavaFX Platform thread. You can be assured of thread-safety
+                Note: Callbacks are run on the JavaFX Platform thread. You can be assured of thread-safety
                 when altering or interacting with the GUI in these callbacks.
             </strong>
         </p>

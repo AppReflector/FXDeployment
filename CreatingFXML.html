@@ -16,7 +16,7 @@
 <body>
 <div class="wrapper">
     <header>
-        <h1><a href="index.html" title="Go to overview">FXDeployment: Attaching Callbacks</a></h1>
+        <h1><a href="index.html" title="Go to overview">FXDeployment: Creating FXML</a></h1>
 
         <h3><em>
             Embed a JavaFX scene into a browser page and automatically support user interaction via JavaScript callbacks
@@ -59,7 +59,7 @@
                 <a href="./GUIDesignTools.html"> <strong>GUI Design Tools</strong></a>
             </li>
             <li>
-                <a href="./AttachingCallbacks.html"> <strong>Creating FXML</strong></a>
+                <a href="./CreatingFXML.html"> <strong>Creating FXML</strong></a>
             </li>
             <li>
                 <a href="./javadoc/index.html"> <strong>Java Documents</strong></a>
@@ -72,11 +72,44 @@
 
     <section>
         <p>
-        Well-formed FXML from designers such as <a href="">Scene Builder</a> can be supplied directly to the
-        FXDeployment code.<br>
+        <h4>Well-formed FXML from design tools such as <a href="./GUIDesignTools.html">Scene Builder</a> can be supplied directly to the
+        FXDeployment code.</h4>
+
+
+        For an overview of FXML see<a href="http://docs.oracle.com/javase/8/javafx/fxml-tutorial/why_use_fxml.htm#JFXMG137"> here </a>
+        and for a full specification of FXML see <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html">here</a>.<br>
+
         As a convenience, the code also allows FXML lacking the required header and import information to
         be supplied.
+
+        This following is added:
+        <ol>
+            <li><strong>Define the language and encoding:</strong><br>
+                &lt?xml version="1.0" encoding="UTF-8"?&gt</li>
+            <li><strong>The standard imports:</strong><br>
+                &lt?import java.lang.*?&gt<br>
+                &lt?import java.util.*?&gt<br>
+                &lt?import javafx.scene.effect.*?&gt<br>
+                &lt?import javafx.geometry.Pos.*?&gt<br>
+                &lt?import javafx.scene.text.*?&gt<br>
+                &lt?import javafx.scene.*?&gt<br>
+                &lt?import javafx.scene.control.*?&gt<br>
+                &lt?import javafx.scene.shape.*?&gt<br>
+                &lt?import javafx.scene.layout.*?&gt<br>
+                &lt?import javafx.collections.*?&gt<br>
+            </li>
+            </ol>
+            In addition, namespaces will be added to the root element e.g.<br>
+                &ltAnchorPane ... xmlns:fx = "http://javafx.com/fxml/1" xmlns = "http://javafx.com/javafx/8" &gt<br>
+                    ...<br>
+                &lt/AnchorPane&gt<br>
         </p>
+
+        The imports in 2 above can be modified using <strong><em>fxdeploy$common</em></strong> methods:
+        <ul>
+            <li><strong>getHeader()</strong> returns the header string</li>
+            <li><strong>setHeader(newString)</strong> replaces it so additional imports can be appended</li>
+        </ul>
 
 
     </section>
